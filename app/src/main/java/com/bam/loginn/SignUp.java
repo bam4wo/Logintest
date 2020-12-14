@@ -83,7 +83,7 @@ public class SignUp extends AppCompatActivity {
                             data[1] = email;
                             data[2] = password;
                             data[3] = password2;
-                            PutData putData = new PutData("https://192.168.1.109/Hospital/signup.php", "POST", field, data);
+                            PutData putData = new PutData("https://192.168.1.109/Hospital/signup.php", "POST", field, data); //網址要改成自己的php檔位置及自己的ip
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     progressBar.setVisibility(View.GONE);
@@ -97,10 +97,7 @@ public class SignUp extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
                                     }
                                 }
-                                //End ProgressBar (Set visibility to GONE)
-
                             }
-
                         }
                     });
                 }else {
@@ -129,7 +126,7 @@ public class SignUp extends AppCompatActivity {
             }};
 
             SSLContext sc = SSLContext.getInstance("TLS");
-            // trustAllCerts信任所有的证书
+            // trustAllCerts信任所有的證書
             sc.init(null, trustAllCerts, new SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
             HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {

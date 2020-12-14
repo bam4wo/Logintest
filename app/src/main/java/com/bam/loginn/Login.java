@@ -89,11 +89,7 @@ public class Login extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
                                     }
                                 }
-                                //End ProgressBar (Set visibility to GONE)
-
                             }
-
-                            //End Write and Read data with URL
                         }
                     });
                 } else {
@@ -119,7 +115,6 @@ public class Login extends AppCompatActivity {
             }};
 
             SSLContext sc = SSLContext.getInstance("TLS");
-            // trustAllCerts信任所有的证书
             sc.init(null, trustAllCerts, new SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
             HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
