@@ -75,7 +75,7 @@ public class Login extends AppCompatActivity {
                             String[] data = new String[2];
                             data[0] = email;
                             data[1] = password;
-                            PutData putData = new PutData("http://192.168.1.109/Hospital/login.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.1.109/Hospital/login.php", "POST", field, data); //網址要改成自己的php檔位置及自己的ip
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     progressBar.setVisibility(View.GONE);

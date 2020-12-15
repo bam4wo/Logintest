@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Loginn</string>
     <string name="password">密碼</string>
-    <string name="login">login</string>
+    <string name="login">登入</string>
     <string name="password2">確認密碼</string>
     <string name="signuphere">還沒有帳號嗎？點此註冊</string>
     <string name="employeeid">員工帳號</string>
     <string name="email">email</string>
-    <string name="signup">signup</string>
-    <string name="loginhere">登入</string>
+    <string name="signup">註冊</string>
+    <string name="loginhere">點此登入</string>
     <string name="idoremail">員工編號 or Email</string>
 </resources>
