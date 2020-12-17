@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +46,21 @@ public class Login extends AppCompatActivity {
         progressBar = findViewById(R.id.progress);
 
         handleSSLHandshake();
+
+        CheckBox cb = findViewById(R.id.checkBox2);
+        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // TODO Auto-generated method stub
+                if (isChecked) {
+                    //顯示密碼
+                    textInputEditTextPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    //隱藏密碼
+                    textInputEditTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
 
         textViewSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
