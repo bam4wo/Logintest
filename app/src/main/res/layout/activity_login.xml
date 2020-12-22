@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:hint="@string/idoremail"
+            android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,8 +68,6 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_pass"
-                android:drawableRight="@drawable/ic_pass"
                 android:fontFamily="@font/poppinsmedium"
                 tools:targetApi="jelly_bean" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -110,15 +108,15 @@
             tools:targetApi="jelly_bean" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/passcheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:text="顯示密碼"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword" />
+            android:layout_marginEnd="3dp"
+            android:layout_marginRight="3dp"
+            android:button="@drawable/ic_eye"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayoutPassword"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmployeeId" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -178,6 +176,15 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Switch
+        android:id="@+id/idswitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="員工編號"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox3"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

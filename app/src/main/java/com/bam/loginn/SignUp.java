@@ -47,9 +47,43 @@ public class SignUp extends AppCompatActivity {
         buttonSignUp = findViewById(R.id.buttonSignUp);
         textViewLogin = findViewById(R.id.loginText);
         progressBar = findViewById(R.id.progress);
+        //隱藏密碼
+        textInputEditTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        textInputEditTextPassword2.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
         handleSSLHandshake(); //呼叫忽略https的證書校驗方法
 
+        CheckBox passcheck = findViewById(R.id.passcheck);
+        passcheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // TODO Auto-generated method stub
+                if (isChecked) {
+                    //顯示密碼
+                    textInputEditTextPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    //隱藏密碼
+                    textInputEditTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
+
+        CheckBox passcheck2 = findViewById(R.id.passcheck2);
+        passcheck2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // TODO Auto-generated method stub
+                if (isChecked) {
+                    //顯示密碼
+                    textInputEditTextPassword2.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    //隱藏密碼
+                    textInputEditTextPassword2.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
+
+        //點此登入
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,17 +110,24 @@ public class SignUp extends AppCompatActivity {
                         public void run() {
                             //Starting Write and Read data with URL
                             //Creating array for parameters
-                            String[] field = new String[4];
+                            String[] field = new String[3];
                             field[0] = "employee_id";
                             field[1] = "email";
                             field[2] = "password";
-                            field[3] = "password2";
                             //Creating array for data
                             String[] data = new String[4];
                             data[0] = employee_id;
                             data[1] = email;
                             data[2] = password;
                             data[3] = password2;
+                            //判斷密碼跟確認密碼是否一致(絹)
+                            while (!data[2].equals(data[3])) {
+                                textInputEditTextPassword2.setText("");
+                                field[2] = "";
+                                field[3] = "";
+                                Toast.makeText(SignUp.this,"密碼不一致！",Toast.LENGTH_LONG).show();
+                                break;
+                            }
                             PutData putData = new PutData("https://192.168.1.109/Hospital/signup.php", "POST", field, data); //網址要改成自己的php檔位置及自己的ip
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {

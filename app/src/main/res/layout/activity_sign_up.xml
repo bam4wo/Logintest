@@ -89,8 +89,6 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_pass"
-                android:drawableRight="@drawable/ic_pass"
                 android:fontFamily="@font/poppinsmedium"
                 tools:targetApi="jelly_bean" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -109,8 +107,6 @@
                 android:id="@+id/password2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_pass"
-                android:drawableRight="@drawable/ic_pass"
                 android:fontFamily="@font/poppinsmedium"
                 tools:targetApi="jelly_bean" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -159,6 +155,28 @@
             android:text="同時綁定此裝置"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword2" />
+
+        <CheckBox
+            android:id="@+id/passcheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginRight="3dp"
+            android:button="@drawable/ic_eye"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayoutPassword"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmail" />
+
+        <CheckBox
+            android:id="@+id/passcheck2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginRight="3dp"
+            android:button="@drawable/ic_eye"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayoutPassword2"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
