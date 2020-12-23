@@ -1,10 +1,16 @@
 package com.bam.loginn;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.TelephonyManager;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -34,6 +40,12 @@ public class SignUp extends AppCompatActivity {
     Button buttonSignUp;
     TextView textViewLogin;
     ProgressBar progressBar;
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+    //private static final int PERMISSIONS_REQUEST_READ_PHONE_STATE = 999;
+    String IMEINumber;
+    TextView imei;
+    private static final int REQUEST_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +95,19 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
+        CheckBox bindcheck = findViewById(R.id.bindcheck);
+        bindcheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // TODO Auto-generated method stub
+                if (isChecked) {
+                    getImei();
+                } else {
+                    IMEINumber.equals("");
+                }
+            }
+        });
+
         //點此登入
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +121,7 @@ public class SignUp extends AppCompatActivity {
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String employee_id, email, password, password2;
+                String employee_id, email, password, password2, bindimei;
                 employee_id = String.valueOf(textInputEditTextEmployeeId.getText());
                 email = String.valueOf(textInputEditTextEmail.getText());
                 password = String.valueOf(textInputEditTextPassword.getText());
@@ -145,6 +170,36 @@ public class SignUp extends AppCompatActivity {
                             }
                         }
                     });
+                    //imei傳入資料庫
+                    if(!IMEINumber.equals("")){
+                        Handler handler2 = new Handler();
+                        handler2.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                String[] field = new String[2];
+                                field[0] = "employee_id";
+                                field[1] = "imei";
+                                String[] data = new String[2];
+                                data[0] = employee_id;
+                                data[1] = IMEINumber;
+                                PutData putData = new PutData("https://192.168.1.109/Hospital/Getimei.php", "POST", field, data); //網址要改成自己的php檔位置及自己的ip
+                                if (putData.startPut()) {
+                                    if (putData.onComplete()) {
+                                        progressBar.setVisibility(View.GONE);
+                                        String result = putData.getResult();
+                                        if (result.equals("Get IMEI Success")) {
+                                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                                            Intent intent = new Intent(getApplicationContext(), Login.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }else {
                     Toast.makeText(getApplicationContext(),"All fields require", Toast.LENGTH_LONG).show();
                 }
@@ -183,5 +238,28 @@ public class SignUp extends AppCompatActivity {
         } catch (Exception ignored) {
         }
 
+    }
+
+    public void getImei(){
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
+            return;
+        }
+        IMEINumber = telephonyManager.getDeviceId();
+        imei.setText(IMEINumber);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Permission granted.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Permission denied.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }

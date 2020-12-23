@@ -146,7 +146,7 @@
             tools:targetApi="jelly_bean" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/bindcheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -177,6 +177,7 @@
             android:button="@drawable/ic_eye"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayoutPassword2"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
